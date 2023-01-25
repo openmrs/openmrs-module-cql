@@ -1,0 +1,239 @@
+{
+    "resourceType": "Bundle",
+    "id": "37143455-e3c4-4fae-9415-550551f1f056",
+    "meta": {
+        "lastUpdated": "2023-01-24T22:49:11.420-08:00"
+    },
+    "type": "searchset",
+    "total": 3,
+    "link": [
+        {
+            "relation": "self",
+            "url": "http://localhost:8080/openmrs/ws/fhir2/R4/Observation?subject=444edf51-9b3f-4c2a-9bbd-825c1485069b"
+        }
+    ],
+    "entry": [
+        {
+            "fullUrl": "http://localhost:8080/openmrs/ws/fhir2/R4/Observation/206af3e9-2d0d-4f79-bc4b-f3c74d83238a",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "206af3e9-2d0d-4f79-bc4b-f3c74d83238a",
+                "meta": {
+                    "lastUpdated": "2023-01-24T21:26:55.000-08:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>206af3e9-2d0d-4f79-bc4b-f3c74d83238a</td></tr><tr><td>Status:</td><td>FINAL</td></tr><tr><td>Category:</td><td> Exam </td></tr><tr><td>Code:</td><td>Systolic</td></tr><tr><td>Subject:</td><td><a href=\"http://localhost:8080/openmrs/ws/fhir2/R4/Patient/444edf51-9b3f-4c2a-9bbd-825c1485069b\">John Muzanyi (OpenMRS ID: 10000X)</a></td></tr><tr><td>Effective:</td><td> 24 January 2023 00:00:00 </td></tr><tr><td>Issued:</td><td>24/01/2023 09:26:55 PM</td></tr><tr><td>Value:</td><td>160.0 mmHg </td></tr><tr><td>Reference Ranges:</td><td><table class=\"subPropertyTable\"><tbody><tr><th>-</th><th>Low</th><th>High</th><th>Type</th><th>Applies To</th><th>Age</th></tr><tr><td>1</td><td>0.0 </td><td>250.0 </td><td> absolute </td><td/><td> - </td></tr></tbody></table></td></tr></tbody></table></div>"
+                },
+                "status": "final",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                "code": "exam",
+                                "display": "Exam"
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "code": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "display": "Systolic"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "code": "8480-6",
+                            "display": "Systolic"
+                        },
+                        {
+                            "system": "https://cielterminology.org",
+                            "code": "5085",
+                            "display": "Systolic"
+                        },
+                        {
+                            "system": "http://snomed.info/sct/",
+                            "code": "271649006",
+                            "display": "Systolic"
+                        },
+                        {
+                            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+                            "code": "ANC.B8.DE17",
+                            "display": "Systolic"
+                        }
+                    ],
+                    "text": "Systolic"
+                },
+                "subject": {
+                    "reference": "Patient/444edf51-9b3f-4c2a-9bbd-825c1485069b",
+                    "type": "Patient",
+                    "display": "John Muzanyi (OpenMRS ID: 10000X)"
+                },
+                "effectiveDateTime": "2023-01-24T00:00:00-08:00",
+                "issued": "2023-01-24T21:26:55.000-08:00",
+                "valueQuantity": {
+                    "value": 160.0,
+                    "unit": "mmHg",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mmHg"
+                },
+                "referenceRange": [
+                    {
+                        "low": {
+                            "value": 0.0
+                        },
+                        "high": {
+                            "value": 250.0
+                        },
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://fhir.openmrs.org/ext/obs/reference-range",
+                                    "code": "absolute"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/openmrs/ws/fhir2/R4/Observation/4b3f8681-bf0a-4d7c-a0e2-7ce311b6c4a3",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "4b3f8681-bf0a-4d7c-a0e2-7ce311b6c4a3",
+                "meta": {
+                    "lastUpdated": "2023-01-24T21:28:48.000-08:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>4b3f8681-bf0a-4d7c-a0e2-7ce311b6c4a3</td></tr><tr><td>Status:</td><td>FINAL</td></tr><tr><td>Code:</td><td>Symptoms of severe pre-eclampsia</td></tr><tr><td>Subject:</td><td><a href=\"http://localhost:8080/openmrs/ws/fhir2/R4/Patient/444edf51-9b3f-4c2a-9bbd-825c1485069b\">John Muzanyi (OpenMRS ID: 10000X)</a></td></tr><tr><td>Effective:</td><td> 24 January 2023 00:00:00 </td></tr><tr><td>Issued:</td><td>24/01/2023 09:28:48 PM</td></tr><tr><td>Value:</td><td>Vomiting</td></tr></tbody></table></div>"
+                },
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "code": "165280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "display": "Symptoms of severe pre-eclampsia"
+                        },
+                        {
+                            "system": "https://cielterminology.org",
+                            "code": "165280",
+                            "display": "Symptoms of severe pre-eclampsia"
+                        },
+                        {
+                            "system": "http://snomed.info/sct/",
+                            "code": "398254007",
+                            "display": "Symptoms of severe pre-eclampsia"
+                        },
+                        {
+                            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+                            "code": "ANC.B8.DE27",
+                            "display": "Symptoms of severe pre-eclampsia"
+                        }
+                    ],
+                    "text": "Symptoms of severe pre-eclampsia"
+                },
+                "subject": {
+                    "reference": "Patient/444edf51-9b3f-4c2a-9bbd-825c1485069b",
+                    "type": "Patient",
+                    "display": "John Muzanyi (OpenMRS ID: 10000X)"
+                },
+                "effectiveDateTime": "2023-01-24T00:00:00-08:00",
+                "issued": "2023-01-24T21:28:48.000-08:00",
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "code": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "display": "Vomiting"
+                        },
+                        {
+                            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+                            "code": "ANC.B8.DE33",
+                            "display": "Vomiting"
+                        }
+                    ],
+                    "text": "Vomiting"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8080/openmrs/ws/fhir2/R4/Observation/e99df8bd-724e-4675-a3f1-246231a3cc84",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "e99df8bd-724e-4675-a3f1-246231a3cc84",
+                "meta": {
+                    "lastUpdated": "2023-01-24T21:30:17.000-08:00"
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Id:</td><td>e99df8bd-724e-4675-a3f1-246231a3cc84</td></tr><tr><td>Status:</td><td>FINAL</td></tr><tr><td>Category:</td><td> Laboratory </td></tr><tr><td>Code:</td><td>Urine protein (dip stick)</td></tr><tr><td>Subject:</td><td><a href=\"http://localhost:8080/openmrs/ws/fhir2/R4/Patient/444edf51-9b3f-4c2a-9bbd-825c1485069b\">John Muzanyi (OpenMRS ID: 10000X)</a></td></tr><tr><td>Effective:</td><td> 24 January 2023 00:00:00 </td></tr><tr><td>Issued:</td><td>24/01/2023 09:30:17 PM</td></tr><tr><td>Value:</td><td>Two plus</td></tr></tbody></table></div>"
+                },
+                "status": "final",
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                                "code": "laboratory",
+                                "display": "Laboratory"
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "code": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "display": "Urine protein (dip stick)"
+                        },
+                        {
+                            "system": "http://loinc.org",
+                            "code": "50949-7",
+                            "display": "Urine protein (dip stick)"
+                        },
+                        {
+                            "system": "https://cielterminology.org",
+                            "code": "1875",
+                            "display": "Urine protein (dip stick)"
+                        },
+                        {
+                            "system": "http://snomed.info/sct/",
+                            "code": "271346009",
+                            "display": "Urine protein (dip stick)"
+                        },
+                        {
+                            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+                            "code": "ANC.B9.DE144",
+                            "display": "Urine protein (dip stick)"
+                        }
+                    ],
+                    "text": "Urine protein (dip stick)"
+                },
+                "subject": {
+                    "reference": "Patient/444edf51-9b3f-4c2a-9bbd-825c1485069b",
+                    "type": "Patient",
+                    "display": "John Muzanyi (OpenMRS ID: 10000X)"
+                },
+                "effectiveDateTime": "2023-01-24T00:00:00-08:00",
+                "issued": "2023-01-24T21:30:17.000-08:00",
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "code": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "display": "Two plus"
+                        },
+                        {
+                            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+                            "code": "ANC.B9.DE147",
+                            "display": "Two plus"
+                        }
+                    ],
+                    "text": "Two plus"
+                }
+            }
+        }
+    ]
+}
