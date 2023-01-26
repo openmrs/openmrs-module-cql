@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * This class configured as controller using annotation and mapped with the URL of
- * 'module/${rootArtifactid}/${rootArtifactid}Link.form'.
+ * 'module/cql/cqlLink.form'.
  */
-@Controller("${rootrootArtifactid}.CQLController")
-@RequestMapping(value = "module/${rootArtifactid}/${rootArtifactid}.form")
+@Controller("cql.CQLController")
+@RequestMapping(value = "module/cql/cql.form")
 public class CQLController {
 	
 	/** Logger for this class and subclasses */
@@ -39,7 +39,7 @@ public class CQLController {
 	UserService userService;
 	
 	/** Success form view name */
-	private final String VIEW = "/module/${rootArtifactid}/${rootArtifactid}";
+	private final String VIEW = "/module/cql/cql";
 	
 	/**
 	 * Initially called after the getUsers method to get the landing form name

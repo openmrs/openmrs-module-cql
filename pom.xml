@@ -5,7 +5,7 @@
 	<artifactId>cql</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>CQL</name>
+	<name>CQL Module</name>
 	<description>Provides CQL functionality</description>
 
 	<url>https://wiki.openmrs.org/x/FQ4z</url>
