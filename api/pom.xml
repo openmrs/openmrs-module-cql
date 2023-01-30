@@ -125,6 +125,10 @@
 	        		<groupId>org.fhir</groupId>
 	        		<artifactId>ucum</artifactId>
 	        	</exclusion>
+	        	<exclusion>
+	        		<groupId>xpp3</groupId>
+	        		<artifactId>xpp3_min</artifactId>
+	        	</exclusion>
 	        </exclusions>
         </dependency>
 	    
