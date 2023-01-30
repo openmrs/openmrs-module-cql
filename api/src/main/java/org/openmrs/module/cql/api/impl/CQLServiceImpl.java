@@ -12,19 +12,15 @@ package org.openmrs.module.cql.api.impl;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.cql.PlanDefinition;
 import org.openmrs.module.cql.api.CQLService;
 import org.openmrs.module.cql.api.dao.CQLDao;
-import org.openmrs.module.fhir2.providers.r4.ObservationFhirResourceProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
 	
 	CQLDao dao;
 	
 	UserService userService;
-	
-	@Autowired
-	private ObservationFhirResourceProvider resourceProvider;
 	
 	/**
 	 * Injected in moduleApplicationContext.xml
@@ -42,6 +38,15 @@ public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
 
 	@Override
 	public String applyPlanDefinition(String patientUuid, String planDefinitionId) throws APIException {
-		return null;
+		
+		return new PlanDefinition.Apply(
+				planDefinitionId,
+				patientUuid,
+                null
+            )
+        	.withLibraries("")
+            .withData("combined_bundle.json")
+            .apply()
+            .getJson();
 	}
 }

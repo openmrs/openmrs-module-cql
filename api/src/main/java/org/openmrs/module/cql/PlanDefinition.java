@@ -187,7 +187,7 @@ public class PlanDefinition {
         }
     }
     
-    static class Apply {
+    public static class Apply {
         private String planDefinitionID;
 
         private String patientID;
@@ -249,7 +249,7 @@ public class PlanDefinition {
         }
     }
   
-    static class GeneratedCarePlan {
+    public static class GeneratedCarePlan {
         CarePlan carePlan;
 
         public GeneratedCarePlan(CarePlan carePlan) {
