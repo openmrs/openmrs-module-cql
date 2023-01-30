@@ -229,6 +229,10 @@
             			hapi-fhir-validation-resources-r4
             		</artifactId>
             	</exclusion>
+            	<exclusion>
+            		<groupId>org.apache.commons</groupId>
+            		<artifactId>commons-compress</artifactId>
+            	</exclusion>
             </exclusions>
 		</dependency>
         
