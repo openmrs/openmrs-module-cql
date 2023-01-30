@@ -23,6 +23,10 @@
 					<groupId>ca.uhn.hapi</groupId>
 					<artifactId>hapi-base</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -46,12 +50,6 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.14</version>
-			<scope>provided</scope>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
@@ -78,6 +76,10 @@
 				<exclusion>
 					<groupId>org.fhir</groupId>
 					<artifactId>ucum</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -193,6 +195,18 @@
             		<groupId>org.fhir</groupId>
             		<artifactId>ucum</artifactId>
             	</exclusion>
+            	<exclusion>
+            		<groupId>com.github.ben-manes.caffeine</groupId>
+            		<artifactId>caffeine</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>commons-codec</groupId>
+            		<artifactId>commons-codec</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>org.apache.httpcomponents</groupId>
+            		<artifactId>httpclient</artifactId>
+            	</exclusion>
             </exclusions>
 		</dependency>
         
@@ -263,12 +277,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.github.ben-manes.caffeine</groupId>
-                <artifactId>caffeine</artifactId>
-                <version>${caffeine.version}</version>
                 <scope>test</scope>
             </dependency>
 
