@@ -223,6 +223,12 @@
             			hapi-fhir-validation-resources-r5
             		</artifactId>
             	</exclusion>
+            	<exclusion>
+            		<groupId>ca.uhn.hapi.fhir</groupId>
+            		<artifactId>
+            			hapi-fhir-validation-resources-r4
+            		</artifactId>
+            	</exclusion>
             </exclusions>
 		</dependency>
         
