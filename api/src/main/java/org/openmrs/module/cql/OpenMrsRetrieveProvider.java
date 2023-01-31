@@ -47,7 +47,11 @@ public class OpenMrsRetrieveProvider implements RetrieveProvider {
 				IBundleProvider results = encounterResourceProvider.searchEncounter(null, null, null, null, patientReference, null, null, null,
 				    null, null, null, null, null);
 				
-				return results.getAllResources().stream().map(x -> (Object) x).collect(Collectors.toList());
+				if (results.size() == 0) {
+					return Collections.emptyList();
+				}
+				
+				return Collections.singleton(results.getAllResources().iterator().next());
 			}
 			else {
 				//check to verify if dataType can be only Encounter or Observation. In which case we should never get here.
