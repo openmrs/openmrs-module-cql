@@ -12,7 +12,6 @@ package org.openmrs.module.cql.web.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.openmrs.module.cql.api.CQLService;
-import org.openmrs.module.webservices.rest.SimpleObject;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.v1_0.controller.BaseRestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +34,6 @@ public class PlanDefinitionApplyController extends BaseRestController {
 		String subject = request.getParameter("subject");
 		String planDefinitonId = request.getParameter("plandefinition");
 		
-		String carePlanJson = cqlService.applyPlanDefinition(subject, planDefinitonId);
-		SimpleObject careplan = new SimpleObject();
-		careplan.put("carePlanJson", carePlanJson);
-		
-		return careplan;
+		return cqlService.applyPlanDefinition(subject, planDefinitonId);
 	}
 }
