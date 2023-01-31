@@ -11,7 +11,6 @@ import java.util.Set;
 import org.cqframework.cql.cql2elm.LibrarySourceProvider;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Bundle;
-import org.hl7.fhir.r4.model.CarePlan;
 import org.hl7.fhir.r4.model.Coding;
 import org.hl7.fhir.r4.model.Endpoint;
 import org.hl7.fhir.r4.model.IdType;
@@ -250,9 +249,9 @@ public class PlanDefinition {
     }
   
     public static class GeneratedCarePlan {
-        CarePlan carePlan;
+    	IBaseResource carePlan;
 
-        public GeneratedCarePlan(CarePlan carePlan) {
+        public GeneratedCarePlan(IBaseResource carePlan) {
             this.carePlan = carePlan;
         }
         

@@ -119,7 +119,7 @@
         <dependency>
 	        <groupId>org.opencds.cqf.cql</groupId>
 	        <artifactId>engine.jackson</artifactId>
-	        <version>2.5.0-SNAPSHOT</version>
+	        <version>2.2.0</version>
 	        <exclusions>
 	        	<exclusion>
 	        		<groupId>org.fhir</groupId>
@@ -141,7 +141,7 @@
 		<dependency>
             <groupId>org.opencds.cqf.cql</groupId>
             <artifactId>evaluator.plandefinition</artifactId>
-            <version>2.3.0-SNAPSHOT</version>
+            <version>2.2.0</version>
             <exclusions>
             	<exclusion>
             		<groupId>xpp3</groupId>
@@ -233,6 +233,26 @@
             		<groupId>org.apache.commons</groupId>
             		<artifactId>commons-compress</artifactId>
             	</exclusion>
+            	<exclusion>
+            		<groupId>ca.uhn.hapi.fhir</groupId>
+            		<artifactId>org.hl7.fhir.r5</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>org.opencds.cqf.cql</groupId>
+            		<artifactId>evaluator.fhir-npm</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>info.cqframework</groupId>
+            		<artifactId>cqf-fhir-npm</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>com.ibm.icu</groupId>
+            		<artifactId>icu4j</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>org.antlr</groupId>
+            		<artifactId>antlr4</artifactId>
+            	</exclusion>
             </exclusions>
 		</dependency>
         
@@ -258,7 +278,7 @@
 			<dependency>
 	            <groupId>org.opencds.cqf.cql</groupId>
 	            <artifactId>evaluator.jackson-deps</artifactId>
-	            <version>2.3.0-SNAPSHOT</version>
+	            <version>2.2.0</version>
 	            <type>pom</type>
 	            <scope>test</scope>
 	            <exclusions>
