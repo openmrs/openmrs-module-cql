@@ -10,6 +10,7 @@ import org.opencds.cqf.cql.engine.runtime.Code;
 import org.opencds.cqf.cql.engine.runtime.Interval;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.fhir2.providers.r4.EncounterFhirResourceProvider;
 import org.openmrs.module.fhir2.providers.r4.ObservationFhirResourceProvider;
 
 import ca.uhn.fhir.rest.api.server.IBundleProvider;
@@ -21,9 +22,10 @@ import ca.uhn.fhir.rest.param.TokenParam;
 
 public class OpenMrsRetrieveProvider implements RetrieveProvider {
 	
-	private ObservationFhirResourceProvider resourceProvider;
+	private ObservationFhirResourceProvider obsResourceProvider;
 	private Map<String, IBundleProvider> obsCache = new HashMap<>();
 	
+	private EncounterFhirResourceProvider encounterResourceProvider;
 
 	@Override
 	public Iterable<Object> retrieve(final String context, final String contextPath, final Object contextValue, final String dataType,
@@ -32,7 +34,25 @@ public class OpenMrsRetrieveProvider implements RetrieveProvider {
 		
 		
 		if (valueSet == null) {
-			return Collections.emptyList();
+			if ("Encounter".equals(dataType)) {
+				if (encounterResourceProvider == null) {
+					encounterResourceProvider = Context.getRegisteredComponent("encounterFhirR4ResourceProvider", EncounterFhirResourceProvider.class);
+				}
+				
+				ReferenceAndListParam patientReference = new ReferenceAndListParam();
+				ReferenceParam patient = new ReferenceParam();
+				patient.setValue(PlanDefinition.getPatientId());
+				patientReference.addValue(new ReferenceOrListParam().add(patient));
+				
+				IBundleProvider results = encounterResourceProvider.searchEncounter(null, null, null, null, patientReference, null, null, null,
+				    null, null, null, null, null);
+				
+				return results.getAllResources().stream().map(x -> (Object) x).collect(Collectors.toList());
+			}
+			else {
+				//check to verify if dataType can be only Encounter or Observation. In which case we should never get here.
+				return Collections.emptyList();
+			}
 		}
 			
 		IBundleProvider results = obsCache.get(valueSet);
@@ -55,11 +75,11 @@ public class OpenMrsRetrieveProvider implements RetrieveProvider {
 			patient.setValue(PlanDefinition.getPatientId());
 			patientReference.addValue(new ReferenceOrListParam().add(patient));
 			
-			if (resourceProvider == null) {
-				resourceProvider = Context.getRegisteredComponent("observationFhirR4ResourceProvider", ObservationFhirResourceProvider.class);
+			if (obsResourceProvider == null) {
+				obsResourceProvider = Context.getRegisteredComponent("observationFhirR4ResourceProvider", ObservationFhirResourceProvider.class);
 			}
 			
-			results = resourceProvider.searchObservations(null, patientReference, null, null, null, null, null, null, code,
+			results = obsResourceProvider.searchObservations(null, patientReference, null, null, null, null, null, null, code,
 				    null, null, null, null, null, null, null);
 			
 			obsCache.put(valueSet, results);
