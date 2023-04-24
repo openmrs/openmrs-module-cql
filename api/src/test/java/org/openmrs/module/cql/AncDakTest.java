@@ -31,14 +31,15 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 		isEqualsTo(
 				PlanDefinition.Assert.that(
                 "ANCDT17",
-                "5946f880-b197-400b-9caa-a3c661d23041",
+                "Patient/5946f880-b197-400b-9caa-a3c661d23041",
                 null
             )
-        	.withLibraries("")
-            .withData("combined_bundle.json")
+			.withData("anc-dak/data-bundle.json")
+		    .withContent("anc-dak/content-bundle.json")
+		    .withTerminology("anc-dak/terminology-bundle.json")
             .apply()
             .getJson(), 
-            "output_careplan.json");
+            "anc-dak/output-careplan.json");
     }
 	
 	

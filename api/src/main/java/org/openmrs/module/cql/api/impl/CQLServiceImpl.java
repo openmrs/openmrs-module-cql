@@ -44,7 +44,6 @@ public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
 				patientUuid,
                 null
             )
-        	.withLibraries("")
             .withData("combined_bundle.json")
             .apply()
             .getJson();
