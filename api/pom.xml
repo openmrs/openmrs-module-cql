@@ -65,6 +65,10 @@
 					<groupId>ca.uhn.hapi.fhir</groupId>
 					<artifactId>hapi-fhir-converter</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>ca.uhn.hapi.fhir</groupId>
+					<artifactId>hapi-fhir-base</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -213,6 +217,10 @@
             		<groupId>org.antlr</groupId>
             		<artifactId>antlr4</artifactId>
             	</exclusion>
+            	<exclusion>
+            		<groupId>ca.uhn.hapi.fhir</groupId>
+            		<artifactId>hapi-fhir-base</artifactId>
+            	</exclusion>
             </exclusions>
 		</dependency>
         
@@ -321,14 +329,38 @@
 		        <artifactId>org.hl7.fhir.r4b</artifactId>
 		        <version>${fhir-core.version}</version>
 		        <scope>provided</scope>
-		    </dependency>
+		        <exclusions>
+		        	<exclusion>
+		        		<groupId>ca.uhn.hapi.fhir</groupId>
+		        		<artifactId>hapi-fhir-base</artifactId>
+		        	</exclusion>
+		        </exclusions>
+            </dependency>
 		    <dependency>
 		        <groupId>ca.uhn.hapi.fhir</groupId>
 		        <artifactId>org.hl7.fhir.r4</artifactId>
 		        <version>${fhir-core.version}</version>
 		        <scope>provided</scope>
-		     </dependency>
-		
+		        <exclusions>
+		        	<exclusion>
+		        		<groupId>ca.uhn.hapi.fhir</groupId>
+		        		<artifactId>hapi-fhir-base</artifactId>
+		        	</exclusion>
+		        </exclusions>
+		    </dependency>
+		    
+		    <dependency>
+			    <groupId>ca.uhn.hapi.fhir</groupId>
+			    <artifactId>hapi-fhir-base</artifactId>
+			    <version>6.4.4</version>
+			    <scope>provided</scope>
+			</dependency>
+
+		    <dependency>
+		    	<groupId>org.opencds.cqf.cql</groupId>
+		    	<artifactId>evaluator.measure-hapi</artifactId>
+		    	<version>3.0.0-SNAPSHOT</version>
+		    </dependency>
 	</dependencies>
 	
 </project>
