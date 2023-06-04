@@ -9,6 +9,8 @@
  */
 package org.openmrs.module.cql.api.impl;
 
+import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -47,5 +49,10 @@ public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
             .withData("combined_bundle.json")
             .apply()
             .getJson();
+	}
+
+	@Override
+	public Encounter getLatestEncounter(Patient patient) {
+		return dao.getLatestEncounter(patient);
 	}
 }

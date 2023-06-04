@@ -9,6 +9,11 @@
  */
 package org.openmrs.module.cql.api.dao;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +27,14 @@ public class CQLDao {
 	
 	private DbSession getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+	
+	public Encounter getLatestEncounter(Patient patient) {
+		Criteria criteria = getSession().createCriteria(Encounter.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		criteria.add(Restrictions.eq("voided", false));
+		criteria.addOrder(Order.desc("encounterDatetime"));
+		criteria.setMaxResults(1);
+		return (Encounter)criteria.uniqueResult();
 	}
 }

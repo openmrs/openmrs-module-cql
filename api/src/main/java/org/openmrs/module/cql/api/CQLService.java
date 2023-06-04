@@ -9,6 +9,8 @@
  */
 package org.openmrs.module.cql.api;
 
+import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
@@ -24,4 +26,6 @@ public interface CQLService extends OpenmrsService {
 	@Authorized(CQLConfig.MODULE_PRIVILEGE)
 	@Transactional(readOnly = true)
 	String applyPlanDefinition(String patientUuid, String planDefinitionId) throws APIException;
+	
+	Encounter getLatestEncounter(Patient patient);
 }
