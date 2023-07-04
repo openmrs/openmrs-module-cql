@@ -1,0 +1,71 @@
+{
+    "resourceType": "Measure",
+    "id": "TX-PVLS",
+    "url":"http://fhir.org/plir/Measure/TX-PVLS",
+    "identifier": [
+        {
+            "use": "official",
+            "value": "TX_PVLS"
+        }
+    ],
+    "version": "0.0.1",
+    "title": "Sample TX_PVLS population selection criteria and evaluation",
+    "status": "draft",
+    "experimental": true,
+    "library": [
+        "http://fhir.org/plir/Library/TX-PVLS"
+    ],
+    "scoring": {
+        "coding": [
+            {
+                "code": "proportion"
+            }
+        ]
+    },
+    "group": [
+        {
+            "id": "population",
+            "population": [
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "code": "initial-population"
+                            }
+                        ]
+                    },
+                    "criteria": {
+                        "language": "text/cql",
+                        "expression": "Initial Population"
+                    }
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "code": "denominator"
+                            }
+                        ]
+                    },
+                    "criteria": {
+                        "language": "text/cql",
+                        "expression": "Denominator"
+                    }
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "code": "numerator"
+                            }
+                        ]
+                    },
+                    "criteria": {
+                        "language": "text/cql",
+                        "expression": "Numerator"
+                    }
+                }
+            ]
+        }
+    ]
+}

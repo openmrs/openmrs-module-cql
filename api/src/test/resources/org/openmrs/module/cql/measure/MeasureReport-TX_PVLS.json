@@ -1,0 +1,64 @@
+{
+    "resourceType": "MeasureReport",
+    "status": "complete",
+    "type": "summary",
+    "measure": "Measure/TX-PVLS",
+    "period": {
+        "start": "2019-01-01T00:00:00+00:00",
+        "end": "2030-12-31T00:00:00+00:00"
+    },
+    "group": [
+        {
+            "id": "population",
+            "population": [
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "code": "initial-population"
+                            }
+                        ]
+                    },
+                    "count": 3
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "code": "numerator"
+                            }
+                        ]
+                    },
+                    "count": 2
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "code": "denominator"
+                            }
+                        ]
+                    },
+                    "count": 3
+                }
+            ],
+            "measureScore": {
+                "value": 0.6666666666666666
+            }
+        }
+    ],
+    "evaluatedResource": [
+        {
+            "reference": "#Observation/9"
+        },
+        {
+            "reference": "#Observation/8"
+        },
+        {
+            "reference": "#Observation/7"
+        },
+        {
+            "reference": "#Observation/5"
+        }
+    ]
+}
