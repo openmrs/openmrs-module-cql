@@ -11,18 +11,51 @@
 
 -->
 <dataset>
-  <concept concept_id="50891" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="" changed_by="1" date_changed="2005-02-25 11:43:43.0" uuid="c607c80f-1ea9-4da3-bb88-6276ce8868de"/>
-  <concept concept_id="54971" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1" date_changed="2006-06-09 14:57:33.0" uuid="ANC.B8.DE17"/>
-  <concept_name concept_id="50891" name="WEIGHT (KG)" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1439" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="9bc5693a-f558-40c9-8177-145a4b119ca8"/>
+
+  <concept concept_id="50891" retired="false" datatype_id="2" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="" changed_by="1" date_changed="2005-02-25 11:43:43.0" uuid="ANC.B9.DE144aaaaaaaa"/>
+  <concept concept_id="54971" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1" date_changed="2006-06-09 14:57:33.0" uuid="ANC.B8.DE17aaaaaaaaaa"/>
+  <concept concept_id="50892" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="" changed_by="1" date_changed="2005-02-25 11:43:43.0" uuid="ANC.B8.DE20aaaaaaa"/>
+  <concept concept_id="54972" retired="false" datatype_id="2" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1" date_changed="2006-06-09 14:57:33.0" uuid="ANC.B8.DE27aaaaa"/>
+  <concept concept_id="54973" retired="false" datatype_id="4" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1" date_changed="2006-06-09 14:57:33.0" uuid="ANC.B8.DE29aaaaaaaaaaaa"/>
+  <concept concept_id="54974" retired="false" datatype_id="4" class_id="1" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1" date_changed="2006-06-09 14:57:33.0" uuid="ANC.B9.DE146bbbbbbbbbbbbbbbb"/>
+  
+  <concept_name concept_id="50891" name="Urine dipstick result - protein" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1439" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="9bc5693a-f558-40c9-8177-145a4b119ca8"/>
   <concept_name concept_id="54971" name="Systolic blood pressure" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1847" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="6e77e374-18a1-4ec6-8ed4-4152a5a7d6a2"/>
+  <concept_name concept_id="50892" name="Repeat systolic blood pressure" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1411" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="9bc5693a-f558-40c9-8177-145a4b119c11"/>
+  <concept_name concept_id="54972" name="Symptoms of severe pre-eclampsia" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1822" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="6e77e374-18a1-4ec6-8ed4-4152a5a7d622"/>
+  <concept_name concept_id="54973" name="Vomiting" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1833" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="6e77e374-18a1-4ec6-8ed4-4152a5a7d633"/>
+  <concept_name concept_id="54974" name="Urine dipstick result - protein - +" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1844" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="6e77e374-18a1-4ec6-8ed4-4152a5a7d644"/>
+  
   <concept_description concept_description_id="1" concept_id="50891" description="Patient&apos;s weight in kilograms." locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" uuid="5f4d710b-d333-40b7-b449-6e0e739d15d1"/>
   <concept_description concept_description_id="2" concept_id="54971" description="Measure of CD4 (T-helper cells) in blood" locale="en_GB" creator="1" date_created="2004-08-12 00:00:00.0" uuid="2677cc71-0580-4d91-b18f-0a63a1840aa1"/>
-  <concept_numeric concept_id="54971" hi_normal="1497.0" low_critical="99.0" low_normal="445.0" hi_critical="1800.0" hi_absolute="2500.0" low_absolute="0.0" units="cells/mmL" allow_decimal="false"/>
-  <concept_numeric concept_id="50891" hi_normal="250.0" low_critical="0.0" units="kg" allow_decimal="true" display_precision="10" />
+ 
+  <concept_numeric concept_id="54971" hi_normal="140.0" low_critical="85.0" low_normal="100.0" hi_critical="180.0" hi_absolute="250.0" low_absolute="0.0" units="mm[Hg]" allow_decimal="false"/>
+  <concept_numeric concept_id="50892" hi_normal="250.0" low_critical="0.0" units="mm[Hg]" allow_decimal="true" display_precision="10" />
+  
+  <obs obs_id="101" person_id="7" status="FINAL" concept_id="54971" encounter_id="5" obs_datetime="2008-08-15 00:00:00.0" location_id="1" value_numeric="160" comments="" creator="1" date_created="2008-08-18 14:22:47.0" voided="false" uuid="2f616900-5e7c-4667-9a7f-dcb260abf1db"/>
+  <obs obs_id="111" person_id="7" status="FINAL" concept_id="50891" encounter_id="5" obs_datetime="2008-08-15 00:00:00.0" location_id="1" value_coded="54974" comments="" creator="1" date_created="2008-08-18 14:25:29.0" voided="false" uuid="f6ec1267-8eac-415f-a3f0-e47be2c8bb69"/>
+  <obs obs_id="102" person_id="7" status="FINAL" concept_id="50892" encounter_id="5" obs_datetime="2008-08-15 00:00:00.0" location_id="1" value_numeric="160" comments="" creator="1" date_created="2008-08-18 14:22:47.0" voided="false" uuid="2f616900-5e7c-4667-9a7f-dcb260abf1aa"/>
+  <obs obs_id="113" person_id="7" status="FINAL" concept_id="54972" encounter_id="5" obs_datetime="2008-08-15 00:00:00.0" location_id="1" value_coded="54973" comments="" creator="1" date_created="2008-08-18 14:25:29.0" voided="false" uuid="f6ec1267-8eac-415f-a3f0-e47be2c8bb77"/>
+  
   <concept_reference_source concept_source_id="21" name="ANCDAK" description="ANC DAK" hl7_code="ANC" unique_id="2.16.840.1.113883.6.10" creator="1" date_created="2005-02-24 00:00:00.0" uuid="j3nfjk33-639f-4cb4-961f-1e025b908434" retired="false"/>
-  <concept_reference_term concept_reference_term_id="31" concept_source_id="21" code="ANC.B8.DE17" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B8.DE17"/>
-  <concept_reference_map concept_map_id="31" concept_id="50891" concept_reference_term_id="31" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="3d65e67c-49d8-11e0-8fed-18a905e044dd"/>
-  <obs obs_id="101" person_id="7" status="FINAL" concept_id="50891" encounter_id="4" obs_datetime="2008-08-15 00:00:00.0" location_id="1" value_numeric="55.0" comments="" creator="1" date_created="2008-08-18 14:22:47.0" voided="false" uuid="2f616900-5e7c-4667-9a7f-dcb260abf1db"/>
-  <obs obs_id="111" person_id="7" status="FINAL" concept_id="54971" encounter_id="4" obs_datetime="2008-08-15 00:00:00.0" location_id="1" value_numeric="175.0" comments="" creator="1" date_created="2008-08-18 14:25:29.0" voided="false" uuid="f6ec1267-8eac-415f-a3f0-e47be2c8bb69"/>
   <fhir_concept_source fhir_concept_source_id="2" name="ANCDAK" url="http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes" concept_source_id="21" creator="1" date_created="2005-01-01 00:00:00.0" retired="0" uuid="b824bbee-d5aa-4ede-b538-f8b0107a74e4" />
- </dataset>
+ 
+  <concept_reference_term concept_reference_term_id="31" concept_source_id="21" code="ANC.B8.DE17" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B8.DE17"/>
+  <concept_reference_map concept_map_id="31" concept_id="54971" concept_reference_term_id="31" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="3d65e67c-49d8-11e0-8fed-18a905e044dd"/>
+ 
+  <concept_reference_term concept_reference_term_id="32" concept_source_id="21" code="ANC.B9.DE144" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B8.DE20"/>
+  <concept_reference_map concept_map_id="32" concept_id="50891" concept_reference_term_id="32" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="1d65e67c-49d8-11e0-8fed-18a905e044dd"/>
+ 
+  <concept_reference_term concept_reference_term_id="33" concept_source_id="21" code="ANC.B8.DE20" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B8.DE27"/>
+  <concept_reference_map concept_map_id="33" concept_id="50892" concept_reference_term_id="33" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="2d65e67c-49d8-11e0-8fed-18a905e044dd"/>
+ 
+  <concept_reference_term concept_reference_term_id="34" concept_source_id="21" code="ANC.B8.DE27" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B9.DE144"/>
+  <concept_reference_map concept_map_id="34" concept_id="54972" concept_reference_term_id="34" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="4d65e67c-49d8-11e0-8fed-18a905e044dd"/>
+ 
+  <concept_reference_term concept_reference_term_id="35" concept_source_id="21" code="ANC.B8.DE29" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B8.DE174"/>
+  <concept_reference_map concept_map_id="35" concept_id="54973" concept_reference_term_id="35" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="5d65e67c-49d8-11e0-8fed-18a905e044dd"/>
+ 
+  <concept_reference_term concept_reference_term_id="36" concept_source_id="21" code="ANC.B9.DE146" name="weight term2" description="A person's weight in kilograms" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="ANC-DAK-ANC.B8.DE146"/>
+  <concept_reference_map concept_map_id="36" concept_id="54974" concept_reference_term_id="36" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="6d65e67c-49d8-11e0-8fed-18a905e044dd"/>
+ 
+</dataset>
