@@ -12,8 +12,11 @@ package org.openmrs.module.cql;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.opencds.cqf.cql.evaluator.fhir.util.r4.Parameters.parameters;
 import static org.opencds.cqf.cql.evaluator.fhir.util.r4.Parameters.part;
+import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.hl7.fhir.r4.model.Coding;
 import org.hl7.fhir.r4.model.Endpoint;
@@ -22,6 +25,7 @@ import org.json.JSONException;
 import org.junit.Test;
 import org.opencds.cqf.cql.evaluator.fhir.Constants;
 import org.opencds.cqf.cql.evaluator.measure.r4.R4MeasureProcessor;
+import org.openmrs.module.cql.PlanDefinition.Apply;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -32,32 +36,63 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 
 	private static final String DATASET = "org/openmrs/module/cql/ANCDT17.xml";
 	
-	protected FhirContext fhirContext = FhirContext.forCached(FhirVersionEnum.R4);
+    private static InputStream open(String asset) { return PlanDefinition.class.getResourceAsStream(asset); }
+
+    public static String load(InputStream asset) throws IOException {
+        return new String(asset.readAllBytes(), StandardCharsets.UTF_8);
+    }
+    
+    public static String load(String asset) throws IOException { return load(open(asset)); }
+    
+    /** Fluent interface starts here **/
+
+    static class Assert {
+        public static Apply that(String planDefinitionID, String patientID, String encounterID) {
+            return new Apply(planDefinitionID, patientID, encounterID);
+        }
+    }
 	
 	@SuppressWarnings("deprecation")
 	@Test
-    public void testANCDT17PlanDefinition() {
-		
-		var parameters = parameters(part("encounter", "eec646cb-c847-45a7-98bc-91c8c4f70add"));
-		
+    public void testANCDT17WithInMemoryDataRepository() {
+
 		this.executeDataSet(DATASET);
 		
 		isEqualsTo(
-				PlanDefinition.Assert.that(
+				Assert.that(
                 "ANCDT17",
                 "Patient/5946f880-b197-400b-9caa-a3c661d23041",
                 null
             )
-			.withParameters(parameters)
+			.withParameters(parameters(part("encounter", "403fafb-e5e4-42d0-9d11-4f52e89d148c")))
+			.withData("anc-dak/data")
+            .apply()
+            .getJson(), 
+            "anc-dak/output-careplan.json");
+    }
+	
+	@SuppressWarnings("deprecation")
+	@Test
+    public void testANCDT17WithOpenMrsDataRepository() {
+		
+		this.executeDataSet(DATASET);
+		
+		isEqualsTo(
+				Assert.that(
+                "ANCDT17",
+                "Patient/5946f880-b197-400b-9caa-a3c661d23041",
+                null
+            )
+			.withParameters(parameters(part("encounter", "e403fafb-e5e4-42d0-9d11-4f52e89d148c")))
             .apply()
             .getJson(), 
             "anc-dak/output-careplan.json");
     }
 	
 	public void isEqualsTo(String carePlanJson, String expectedCarePlanAssetName) {
-         try {
+         try { 
              JSONAssert.assertEquals(
-            		 PlanDefinition.load(expectedCarePlanAssetName),
+            		 load(expectedCarePlanAssetName),
             		 carePlanJson,
                      true
              );
@@ -69,10 +104,10 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 	@Test
     public void testMeasure() {
 		
-		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(fhirContext, false, 1);
+		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(FhirContext.forCached(FhirVersionEnum.R4), false, 1);
 		
 		//measure and libraries
-		Endpoint contentEndpoint = new Endpoint().setAddress("measure/Measure-TX_PVLS.json")
+		Endpoint contentEndpoint = new Endpoint().setAddress("measure/Measure-TX_PVLS.json,measure/Library-TX-PVLS.json")
 		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
 		
 		//valuesets
@@ -80,7 +115,7 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
 		
 		//observation, patient and encounter
-		Endpoint dataEndpoint = new Endpoint().setAddress("measure/Observation-TX_PVLS.json")
+		Endpoint dataEndpoint = new Endpoint().setAddress("measure/Observation-TX_PVLS-Bundle.json")
 		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
 				
 		MeasureReport report = measureProcessor.evaluateMeasure(
@@ -88,6 +123,6 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 		        "2019-01-01", "2030-12-31", "population", null, null, null, contentEndpoint, terminologyEndpoint, dataEndpoint,
 		        null);
 		
-		System.out.println(PlanDefinition.toString(report));
+		assertEquals(report.getGroupFirstRep().getMeasureScore().getValue().toString(), "0.6666666666666666");
 	}
 }

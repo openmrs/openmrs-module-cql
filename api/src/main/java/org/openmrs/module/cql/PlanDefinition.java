@@ -1,15 +1,13 @@
 package org.openmrs.module.cql;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.hl7.fhir.instance.model.api.IBaseResource;
-import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.CarePlan;
 import org.hl7.fhir.r4.model.IdType;
-import org.opencds.cqf.cql.evaluator.fhir.test.TestRepository;
+import org.hl7.fhir.r4.model.Parameters;
+import org.opencds.cqf.cql.evaluator.fhir.repository.InMemoryFhirRepository;
+import org.opencds.cqf.cql.evaluator.library.EvaluationSettings;
 import org.opencds.cqf.cql.evaluator.library.LibraryEngine;
 import org.opencds.cqf.cql.evaluator.plandefinition.r4.PlanDefinitionProcessor;
 import org.opencds.cqf.fhir.api.Repository;
@@ -24,34 +22,8 @@ public class PlanDefinition {
     private static final FhirContext fhirContext = FhirContext.forCached(FhirVersionEnum.R4);
     private static final IParser jsonParser = fhirContext.newJsonParser().setPrettyPrint(true);
     
-    private static final ThreadLocal<String> patientIdHolder = new ThreadLocal<>();
-    
-    private static InputStream open(String asset) { return PlanDefinition.class.getResourceAsStream(asset); }
-
-    public static String load(InputStream asset) throws IOException {
-        return new String(asset.readAllBytes(), StandardCharsets.UTF_8);
-    }
-    
-    public static String load(String asset) throws IOException { return load(open(asset)); }
-    
-    public static IBaseResource parse(String asset) {
-        return jsonParser.parseResource(open(asset));
-    }
-    
-    public static String getPatientId() {
-    	return patientIdHolder.get();
-    }
-    
     public static PlanDefinitionProcessor buildProcessor(Repository repository) {
         return new PlanDefinitionProcessor(repository);
-    }
-
-    /** Fluent interface starts here **/
-
-    static class Assert {
-        public static Apply that(String planDefinitionID, String patientID, String encounterID) {
-            return new Apply(planDefinitionID, patientID, encounterID);
-        }
     }
     
     public static class Apply {
@@ -64,46 +36,43 @@ public class PlanDefinition {
         private Repository dataRepository;
         private Repository contentRepository;
         private Repository terminologyRepository;
+        
+        private Parameters parameters;
 
         public Apply(String planDefinitionID, String patientID, String encounterID) {
             this.planDefinitionID = planDefinitionID;
             this.patientID = patientID;
             this.encounterID = encounterID;
-            
-            patientIdHolder.set(patientID);
         }
         
-        public Apply withData(String dataAssetName) {
-            dataRepository = new TestRepository(fhirContext, (Bundle) parse(dataAssetName));
+        public Apply withData(String dataFolder) {
+        	dataRepository = new InMemoryFhirRepository(fhirContext, this.getClass(), List.of(dataFolder), false);
             return this;
         }
         
-        public Apply withTerminology(String dataAssetName) {
-            terminologyRepository = new TestRepository(fhirContext, (Bundle) parse(dataAssetName));
-            return this;
-        }
-
-
-        public Apply withContent(String dataAssetName) {
-            contentRepository = new TestRepository(fhirContext, (Bundle) parse(dataAssetName));
+        public Apply withParameters(Parameters params) {
+            parameters = params;
             return this;
         }
         
         private void buildRepository() {
             if (repository != null) {
-              return;
+            	return;
             }
+            
             if (dataRepository == null) {
-              dataRepository = new TestRepository(fhirContext, this.getClass(), List.of("tests"), false);
+                dataRepository = new OpenMrsRepository(fhirContext);
             }
+              
             if (contentRepository == null) {
-              contentRepository = new TestRepository(fhirContext, this.getClass(), List.of("content"), false);
+                contentRepository = new InMemoryFhirRepository(fhirContext, this.getClass(), List.of("anc/libraries", "anc/plandefinitions"), false);
             }
+              
             if (terminologyRepository == null) {
-              terminologyRepository = new TestRepository(fhirContext, this.getClass(),
-                  List.of("vocabulary/CodeSystem", "vocabulary/ValueSet"), false);
+                terminologyRepository = new InMemoryFhirRepository(fhirContext, this.getClass(),
+                    List.of("anc/valuesets"), false);
             }
-
+              
             repository = Repositories.proxy(dataRepository, contentRepository, terminologyRepository);
           }
 
@@ -111,11 +80,11 @@ public class PlanDefinition {
         	
             buildRepository();
             
-            var libraryEngine = new LibraryEngine(this.repository);
+            var libraryEngine = new LibraryEngine(this.repository, EvaluationSettings.getDefault());
      
             return new GeneratedCarePlan((CarePlan) buildProcessor(repository).apply(
                 new IdType("PlanDefinition", planDefinitionID), null, null, patientID, encounterID, null, null, null,
-                null, null, null, null, null, null, null, null, libraryEngine));
+                null, null, null, null, parameters, null, null, null, libraryEngine));
         }
     }
   
@@ -128,6 +97,10 @@ public class PlanDefinition {
         
         public String getJson() {
         	return jsonParser.encodeResourceToString(carePlan);
+        }
+        
+        public CarePlan getCarePlan() {
+        	return (CarePlan)carePlan;
         }
     }
 }
