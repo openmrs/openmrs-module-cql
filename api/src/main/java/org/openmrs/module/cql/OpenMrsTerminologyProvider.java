@@ -45,7 +45,10 @@ public class OpenMrsTerminologyProvider implements TerminologyProvider {
         instance = this;
     }
 
-    public static OpenMrsTerminologyProvider getInstance() {
+    public static OpenMrsTerminologyProvider getInstance(FhirContext fhirContext) {
+    	if (instance == null) {
+    		instance = new OpenMrsTerminologyProvider(fhirContext);
+    	}
 		return instance;
 	}
     

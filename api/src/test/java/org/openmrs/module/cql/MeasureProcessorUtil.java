@@ -28,13 +28,10 @@ import org.opencds.cqf.cql.evaluator.builder.data.FhirModelResolverFactory;
 import org.opencds.cqf.cql.evaluator.builder.data.TypedRetrieveProviderFactory;
 import org.opencds.cqf.cql.evaluator.builder.library.TypedLibrarySourceProviderFactory;
 import org.opencds.cqf.cql.evaluator.builder.terminology.TypedTerminologyProviderFactory;
-import org.opencds.cqf.cql.evaluator.cql2elm.content.fhir.BundleFhirLibrarySourceProvider;
 import org.opencds.cqf.cql.evaluator.cql2elm.util.LibraryVersionSelector;
 import org.opencds.cqf.cql.evaluator.engine.retrieve.BundleRetrieveProvider;
-import org.opencds.cqf.cql.evaluator.engine.terminology.BundleTerminologyProvider;
 import org.opencds.cqf.cql.evaluator.fhir.Constants;
 import org.opencds.cqf.cql.evaluator.fhir.adapter.AdapterFactory;
-import org.opencds.cqf.cql.evaluator.fhir.dal.BundleFhirDal;
 import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal;
 import org.opencds.cqf.cql.evaluator.measure.MeasureEvaluationOptions;
 import org.opencds.cqf.cql.evaluator.measure.r4.R4MeasureProcessor;
@@ -42,6 +39,11 @@ import org.opencds.cqf.cql.evaluator.measure.r4.R4MeasureProcessor;
 import ca.uhn.fhir.context.FhirContext;
 
 public class MeasureProcessorUtil {
+	
+	private static OpenMrsTerminologyProvider terminologyProvider = null;
+    private static OpenMrsFhirLibrarySourceProvider librarySourceProvider = null;
+    private static BundleRetrieveProvider retrieveProvider = null;
+    private static OpenMrsFhirDal fhirDal = null;
 
 	@SuppressWarnings("serial")
 	public static R4MeasureProcessor setup(FhirContext fhirContext, boolean threadedEnabled, int threadedBatchSize) {
@@ -59,11 +61,14 @@ public class MeasureProcessorUtil {
 					}
 
 					@Override
-					public LibrarySourceProvider create(String url, List<String> headers) {
-						return new BundleFhirLibrarySourceProvider(fhirContext,
-								(IBaseBundle) fhirContext.newJsonParser()
-										.parseResource(AncDakTest.class.getResourceAsStream(url)),
-								adapterFactory, libraryVersionSelector);
+					public LibrarySourceProvider create(String urls, List<String> headers) {
+						librarySourceProvider = new OpenMrsFhirLibrarySourceProvider(adapterFactory, libraryVersionSelector);
+						String[] urlArray = "measure/Library-TX-PVLS.json".split(",");
+	                	for (String url : urlArray) {
+	                		librarySourceProvider.add(fhirContext.newJsonParser()
+									.parseResource(AncDakTest.class.getResourceAsStream(url)));
+	                	}
+						return librarySourceProvider;
 					}
 				});
 			}
@@ -87,9 +92,12 @@ public class MeasureProcessorUtil {
 
 					@Override
 					public RetrieveProvider create(String url, List<String> headers) {
-
-						return new BundleRetrieveProvider(fhirContext, (IBaseBundle) fhirContext.newJsonParser()
-								.parseResource(AncDakTest.class.getResourceAsStream(url)));
+						if (retrieveProvider == null) {
+							return new BundleRetrieveProvider(fhirContext, (IBaseBundle) fhirContext.newJsonParser()
+									.parseResource(AncDakTest.class.getResourceAsStream(url)));
+						}
+						
+						return retrieveProvider;
 					}
 				});
 			}
@@ -108,8 +116,10 @@ public class MeasureProcessorUtil {
 
 					@Override
 					public TerminologyProvider create(String url, List<String> headers) {
-						return new BundleTerminologyProvider(fhirContext, (IBaseBundle) fhirContext.newJsonParser()
-								.parseResource(AncDakTest.class.getResourceAsStream(url)));
+						if (terminologyProvider == null) {
+	                		terminologyProvider = OpenMrsTerminologyProvider.getInstance(fhirContext);
+	                	}
+	                	return terminologyProvider;
 					}
 				});
 			}
@@ -127,9 +137,17 @@ public class MeasureProcessorUtil {
 					}
 
 					@Override
-					public FhirDal create(String url, List<String> headers) {
-						return new BundleFhirDal(fhirContext, (IBaseBundle) fhirContext.newJsonParser()
-								.parseResource(AncDakTest.class.getResourceAsStream(url)));
+					public FhirDal create(String urls, List<String> headers) {
+						
+						fhirDal = new OpenMrsFhirDal();
+						
+						String[] urlArray = urls.split(",");
+	                	for (String url : urlArray) {
+	                		fhirDal.addAll(fhirContext.newJsonParser()
+									.parseResource(AncDakTest.class.getResourceAsStream(url)));
+	                	}
+
+						return fhirDal;
 					}
 				});
 			}
@@ -141,11 +159,6 @@ public class MeasureProcessorUtil {
 		EndpointConverter endpointConverter = new EndpointConverter(adapterFactory);
 
 		MeasureEvaluationOptions config = MeasureEvaluationOptions.defaultOptions();
-
-		if (threadedEnabled) {
-			config.setThreadedEnabled(true);
-			config.setThreadedBatchSize(threadedBatchSize);
-		}
 
 		return new R4MeasureProcessor(terminologyProviderFactory, dataProviderFactory,
 				librarySourceProviderFactory, fhirDalFactory, endpointConverter, null, null, null, null, config, null,
