@@ -29,5 +29,9 @@ public interface CQLService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	List<String> applyPlanDefinition(Patient patient, String planDefinitionId) throws APIException;
 	
+	@Authorized(CQLConfig.MODULE_PRIVILEGE)
+	@Transactional(readOnly = true)
+	String applyPlanDefinition(String patientUuid, String planDefinitionId) throws APIException;
+	
 	Encounter getLatestEncounter(Patient patient);
 }

@@ -12,6 +12,7 @@ package org.openmrs.module.cql.api.impl;
 import static org.opencds.cqf.cql.evaluator.fhir.util.r4.Parameters.parameters;
 import static org.opencds.cqf.cql.evaluator.fhir.util.r4.Parameters.part;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hl7.fhir.r4.model.CarePlan;
@@ -19,9 +20,11 @@ import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.cql.CarePlanUtil;
 import org.openmrs.module.cql.PlanDefinition;
+import org.openmrs.module.cql.PlanDefinition.GeneratedCarePlan;
 import org.openmrs.module.cql.api.CQLService;
 import org.openmrs.module.cql.api.dao.CQLDao;
 
@@ -50,19 +53,38 @@ public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
 		
 		Encounter encounter = getLatestEncounter(patient);
 		if (encounter == null) {
+			return new ArrayList<String>();
+		}
+		
+		CarePlan carePlan = applyPlanDefinition(patient, planDefinitionId, encounter).getCarePlan();
+		return CarePlanUtil.getActions(carePlan);
+	}
+	
+	@Override
+	public String applyPlanDefinition(String patientUuid, String planDefinitionId) throws APIException {
+		
+		Patient patient = Context.getPatientService().getPatientByUuid(patientUuid);
+		if (patient == null) {
 			return null;
 		}
 		
-		CarePlan carePlan = new PlanDefinition.Apply(
+		Encounter encounter = getLatestEncounter(patient);
+		if (encounter == null) {
+			return null;
+		}
+		
+		return applyPlanDefinition(patient, planDefinitionId, encounter).getJson();
+	}
+	
+	private GeneratedCarePlan applyPlanDefinition(Patient patient, String planDefinitionId, Encounter encounter) {
+
+		return new PlanDefinition.Apply(
 				planDefinitionId,
 				patient.getUuid(),
                 null
             )
 			.withParameters(parameters(part("encounter", encounter.getUuid())))
-            .apply()
-            .getCarePlan();
-		
-		return CarePlanUtil.getActions(carePlan);
+            .apply();
 	}
 
 	@Override
