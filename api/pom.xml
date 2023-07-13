@@ -69,6 +69,14 @@
 					<groupId>ca.uhn.hapi.fhir</groupId>
 					<artifactId>hapi-fhir-base</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>ca.uhn.hapi.fhir</groupId>
+					<artifactId>hapi-fhir-caching-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>ca.uhn.hapi.fhir</groupId>
+					<artifactId>hapi-fhir-caching-caffeine</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -220,6 +228,14 @@
             	<exclusion>
             		<groupId>ca.uhn.hapi.fhir</groupId>
             		<artifactId>hapi-fhir-base</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>ca.uhn.hapi.fhir</groupId>
+            		<artifactId>hapi-fhir-caching-api</artifactId>
+            	</exclusion>
+            	<exclusion>
+            		<groupId>ca.uhn.hapi.fhir</groupId>
+            		<artifactId>hapi-fhir-caching-caffeine</artifactId>
             	</exclusion>
             </exclusions>
 		</dependency>
