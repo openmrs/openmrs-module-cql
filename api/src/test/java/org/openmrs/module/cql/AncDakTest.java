@@ -102,7 +102,7 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
     }
 	
 	@Test
-    public void testMeasure() {
+    public void testTX_PVLSIndicator() {
 		
 		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(FhirContext.forCached(FhirVersionEnum.R4), false, 1);
 		
