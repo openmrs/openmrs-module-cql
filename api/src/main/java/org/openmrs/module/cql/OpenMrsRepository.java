@@ -60,6 +60,11 @@ public class OpenMrsRepository implements Repository {
   private ObservationFhirResourceProvider obsResourceProvider;
   private Map<String, IBaseBundle> obsCache = new HashMap<>();
 
+  public OpenMrsRepository() {
+	  this.context = null;
+	  this.resourceMap = new LinkedHashMap<>(); 
+  }
+  
   public OpenMrsRepository(FhirContext context) {
     this.context = context;
     this.resourceMap = new LinkedHashMap<>();
@@ -199,6 +204,9 @@ public class OpenMrsRepository implements Repository {
 	    
     	TokenParam codeParam = ((TokenParam)searchParameters.get("code").get(0));
     	
+    	//The only reason why we do caching here is that, in the course of running a plan definition
+    	//for a patient, this is called more than once, for the same patient and observation.
+    	//But as a result of this optimization, we need to call the clearCache() method when we switch to another patient
 	    IBaseBundle bundle = obsCache.get(codeParam.getValue());
 	    if (bundle == null) {
 	    	
@@ -314,5 +322,9 @@ public class OpenMrsRepository implements Repository {
   @Override
   public FhirContext fhirContext() {
     return this.context;
+  }
+  
+  public void clearCache() {
+	  obsCache.clear();
   }
 }
