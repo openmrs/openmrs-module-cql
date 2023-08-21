@@ -19,7 +19,6 @@ import org.hl7.fhir.r4.model.CarePlan;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
-import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.cql.CarePlanUtil;
@@ -30,22 +29,15 @@ import org.openmrs.module.cql.api.dao.CQLDao;
 
 public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
 	
-	CQLDao dao;
+	private CQLDao dao;
 	
-	UserService userService;
+	private PlanDefinition.Apply planDefinitionApply;
 	
 	/**
 	 * Injected in moduleApplicationContext.xml
 	 */
 	public void setDao(CQLDao dao) {
 		this.dao = dao;
-	}
-	
-	/**
-	 * Injected in moduleApplicationContext.xml
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
 	}
 
 	@Override
@@ -78,13 +70,11 @@ public class CQLServiceImpl extends BaseOpenmrsService implements CQLService {
 	
 	private GeneratedCarePlan applyPlanDefinition(Patient patient, String planDefinitionId, Encounter encounter) {
 
-		return new PlanDefinition.Apply(
-				planDefinitionId,
-				patient.getUuid(),
-                null
-            )
-			.withParameters(parameters(part("encounter", encounter.getUuid())))
-            .apply();
+		if (planDefinitionApply == null) {
+			planDefinitionApply = new PlanDefinition.Apply();
+		}
+		
+		return planDefinitionApply.apply(planDefinitionId, patient.getUuid(), null, parameters(part("encounter", encounter.getUuid())));
 	}
 
 	@Override

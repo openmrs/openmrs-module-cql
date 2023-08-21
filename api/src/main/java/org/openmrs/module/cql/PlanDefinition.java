@@ -38,7 +38,13 @@ public class PlanDefinition {
         private Repository terminologyRepository;
         
         private Parameters parameters;
+        
+        private LibraryEngine libraryEngine;
 
+        public Apply() {
+        	
+        }
+        
         public Apply(String planDefinitionID, String patientID, String encounterID) {
             this.planDefinitionID = planDefinitionID;
             this.patientID = patientID;
@@ -74,17 +80,32 @@ public class PlanDefinition {
             }
               
             repository = Repositories.proxy(dataRepository, contentRepository, terminologyRepository);
-          }
+        }
 
-        public GeneratedCarePlan apply() {
+        public GeneratedCarePlan apply() {	
+            return apply(planDefinitionID, patientID, encounterID, parameters);
+        }
+        
+        public GeneratedCarePlan apply(String planDefinitionID, String patientID, String encounterID, Parameters parameters) {
         	
-            buildRepository();
+        	this.planDefinitionID = planDefinitionID;
+            this.patientID = patientID;
+            this.encounterID = encounterID;
+            this.parameters = parameters;
             
-            var libraryEngine = new LibraryEngine(this.repository, EvaluationSettings.getDefault());
-     
-            return new GeneratedCarePlan((CarePlan) buildProcessor(repository).apply(
-                new IdType("PlanDefinition", planDefinitionID), null, null, patientID, encounterID, null, null, null,
-                null, null, null, null, parameters, null, null, null, libraryEngine));
+        	if (libraryEngine == null) {
+        		buildRepository();
+                
+                libraryEngine = new LibraryEngine(this.repository, EvaluationSettings.getDefault());
+        	}
+        	
+        	if (dataRepository instanceof OpenMrsRepository) {
+        		((OpenMrsRepository)dataRepository).clearCache();
+        	}
+        	
+        	return new GeneratedCarePlan((CarePlan) buildProcessor(repository).apply(
+                    new IdType("PlanDefinition", planDefinitionID), null, null, patientID, encounterID, null, null, null,
+                    null, null, null, null, parameters, null, null, null, libraryEngine));
         }
     }
   
