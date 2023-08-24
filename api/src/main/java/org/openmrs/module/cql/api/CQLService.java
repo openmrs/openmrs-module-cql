@@ -33,5 +33,11 @@ public interface CQLService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	String applyPlanDefinition(String patientUuid, String planDefinitionId) throws APIException;
 	
+	@Authorized(CQLConfig.MODULE_PRIVILEGE)
+	@Transactional(readOnly = true)
 	Encounter getLatestEncounter(Patient patient);
+	
+	@Authorized(CQLConfig.MODULE_PRIVILEGE)
+	@Transactional(readOnly = true)
+	String evaluateMeasure(String measureId, String periodStart, String periodEnd, String reportType);
 }
