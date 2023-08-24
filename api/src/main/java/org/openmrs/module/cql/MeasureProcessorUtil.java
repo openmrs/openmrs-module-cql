@@ -63,10 +63,21 @@ public class MeasureProcessorUtil {
 					@Override
 					public LibrarySourceProvider create(String urls, List<String> headers) {
 						librarySourceProvider = new OpenMrsFhirLibrarySourceProvider(adapterFactory, libraryVersionSelector);
-						String[] urlArray = "measure/Library-TX-PVLS.json".split(",");
+						String[] urlArray = ("anc/libraries/Library-TX-PVLS.json," + 
+						"anc/libraries/library-ANCIND07.json,"
+						+ "anc/libraries/library-ANCBaseConcepts.json,"
+						+ "anc/libraries/library-ANCContactDataElements.json,"
+						+ "anc/libraries/library-ANCBaseDataElements.json,"
+						+ "anc/libraries/library-ANCCommon.json,"
+						+ "anc/libraries/library-FHIRCommon.json,"
+						+ "anc/libraries/library-ANCDataElements.json,"
+						+ "anc/libraries/library-WHOCommon.json,"
+						+ "anc/libraries/library-ANCStratifiers.json,"
+						+ "anc/libraries/library-ANCConcepts.json").split(",");
+						
 	                	for (String url : urlArray) {
 	                		librarySourceProvider.add(fhirContext.newJsonParser()
-									.parseResource(AncDakTest.class.getResourceAsStream(url)));
+									.parseResource(getClass().getResourceAsStream(url)));
 	                	}
 						return librarySourceProvider;
 					}
@@ -94,7 +105,7 @@ public class MeasureProcessorUtil {
 					public RetrieveProvider create(String url, List<String> headers) {
 						if (retrieveProvider == null) {
 							return new BundleRetrieveProvider(fhirContext, (IBaseBundle) fhirContext.newJsonParser()
-									.parseResource(AncDakTest.class.getResourceAsStream(url)));
+									.parseResource(getClass().getResourceAsStream(url)));
 						}
 						
 						return retrieveProvider;
@@ -144,7 +155,7 @@ public class MeasureProcessorUtil {
 						String[] urlArray = urls.split(",");
 	                	for (String url : urlArray) {
 	                		fhirDal.addAll(fhirContext.newJsonParser()
-									.parseResource(AncDakTest.class.getResourceAsStream(url)));
+									.parseResource(getClass().getResourceAsStream(url)));
 	                	}
 
 						return fhirDal;
