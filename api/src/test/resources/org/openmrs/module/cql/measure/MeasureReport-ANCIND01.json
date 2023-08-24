@@ -1,0 +1,120 @@
+{
+  "resourceType": "MeasureReport",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.population.description",
+    "valueString": "Percentage of pregnant women with first ANC contact in the first trimester (before 12 weeks of gestation)"
+  } ],
+  "status": "complete",
+  "type": "summary",
+  "measure": "http://fhir.org/guides/who/anc-cds/Measure/ANCIND01",
+  "date": "2023-08-16T22:42:06+03:00",
+  "period": {
+    "start": "2019-01-01T00:00:00+03:00",
+    "end": "2030-12-31T23:59:59+03:00"
+  },
+  "improvementNotation": {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+      "code": "increase"
+    } ]
+  },
+  "group": [ {
+    "id": "group-1",
+    "population": [ {
+      "id": "initial-population",
+      "code": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+          "code": "initial-population"
+        } ]
+      },
+      "count": 0
+    }, {
+      "id": "denominator",
+      "code": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+          "code": "denominator"
+        } ]
+      },
+      "count": 0
+    }, {
+      "id": "numerator",
+      "code": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+          "code": "numerator"
+        } ]
+      },
+      "count": 0
+    } ],
+    "stratifier": [ {
+      "id": "by-age",
+      "stratum": [ {
+        "value": {
+          "text": "P15Y--P19Y"
+        },
+        "population": [ {
+          "id": "initial-population",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "initial-population"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "denominator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "denominator"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "numerator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "numerator"
+            } ]
+          },
+          "count": 0
+        } ]
+      } ]
+    }, {
+      "id": "by-education-level",
+      "stratum": [ {
+        "population": [ {
+          "id": "initial-population",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "initial-population"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "denominator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "denominator"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "numerator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "numerator"
+            } ]
+          },
+          "count": 0
+        } ]
+      } ]
+    } ]
+  } ]
+}

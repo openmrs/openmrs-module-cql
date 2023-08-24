@@ -125,4 +125,57 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 		
 		assertEquals(report.getGroupFirstRep().getMeasureScore().getValue().toString(), "0.6666666666666666");
 	}
+	
+	
+	@Test
+    public void testANCIND1IndicatorWithInMemoryDataRepository() {
+		
+		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(FhirContext.forCached(FhirVersionEnum.R4), false, 1);
+		
+		//measure and libraries
+		Endpoint contentEndpoint = new Endpoint().setAddress("measure/measure-ANCIND07.json,measure/library-ANCIND07.json")
+		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
+		
+		//valuesets
+		Endpoint terminologyEndpoint = new Endpoint().setAddress("anc-dak/terminology-bundle.json")
+		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
+		
+		//observation, patient and encounter
+		Endpoint dataEndpoint = new Endpoint().setAddress("measure/Observation-ANCIND7-Bundle.json")
+		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
+				
+		MeasureReport report = measureProcessor.evaluateMeasure(
+		        "http://fhir.org/guides/who/anc-cds/Measure/ANCIND07",
+		        "2018-01-01", "2030-12-31", "population", null, null, null, contentEndpoint, terminologyEndpoint, dataEndpoint,
+		        null);
+		
+		System.out.println(FhirContext.forCached(FhirVersionEnum.R4).newJsonParser().setPrettyPrint(true).encodeResourceToString(report));
+		//assertEquals(report.getGroupFirstRep().getMeasureScore().getValue().toString(), "0.6666666666666666");
+	}
+	
+	@Test
+    public void testANCIND1IndicatorWithOpenMrsDataRepository() {
+		
+		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(FhirContext.forCached(FhirVersionEnum.R4), false, 1);
+		
+		//measure and libraries
+		Endpoint contentEndpoint = new Endpoint().setAddress("measure/measure-ANCIND07.json,measure/library-ANCIND07.json")
+		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
+		
+		//valuesets
+		Endpoint terminologyEndpoint = new Endpoint().setAddress("anc-dak/terminology-bundle.json")
+		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
+		
+		//observation, patient and encounter
+		Endpoint dataEndpoint = new Endpoint().setAddress("measure/Observation-ANCIND7-Bundle.json")
+		        .setConnectionType(new Coding().setCode(Constants.HL7_FHIR_FILES));
+				
+		MeasureReport report = measureProcessor.evaluateMeasure(
+		        "http://fhir.org/guides/who/anc-cds/Measure/ANCIND07",
+		        "2019-01-01", "2030-12-31", "population", null, null, null, contentEndpoint, terminologyEndpoint, dataEndpoint,
+		        null);
+		
+		System.out.println(FhirContext.forCached(FhirVersionEnum.R4).newJsonParser().setPrettyPrint(true).encodeResourceToString(report));
+		//assertEquals(report.getGroupFirstRep().getMeasureScore().getValue().toString(), "0.6666666666666666");
+	}
 }

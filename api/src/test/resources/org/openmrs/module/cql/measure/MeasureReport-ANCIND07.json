@@ -1,0 +1,152 @@
+{
+  "resourceType": "MeasureReport",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.population.description",
+    "valueString": "Percentage of pregnant women with at least one blood pressure measure during ANC"
+  } ],
+  "status": "complete",
+  "type": "summary",
+  "measure": "http://fhir.org/guides/who/anc-cds/Measure/ANCIND07",
+  "date": "2023-08-22T23:25:09+03:00",
+  "period": {
+    "start": "2019-01-01T00:00:00+03:00",
+    "end": "2030-12-31T23:59:59+03:00"
+  },
+  "improvementNotation": {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+      "code": "increase"
+    } ]
+  },
+  "group": [ {
+    "id": "group-1",
+    "population": [ {
+      "id": "initial-population",
+      "code": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+          "code": "initial-population"
+        } ]
+      },
+      "count": 0
+    }, {
+      "id": "denominator",
+      "code": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+          "code": "denominator"
+        } ]
+      },
+      "count": 0
+    }, {
+      "id": "numerator",
+      "code": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+          "code": "numerator"
+        } ]
+      },
+      "count": 0
+    } ],
+    "stratifier": [ {
+      "id": "by-age",
+      "stratum": [ {
+        "population": [ {
+          "id": "initial-population",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "initial-population"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "denominator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "denominator"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "numerator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "numerator"
+            } ]
+          },
+          "count": 0
+        } ]
+      } ]
+    }, {
+      "id": "by-education-level",
+      "stratum": [ {
+        "population": [ {
+          "id": "initial-population",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "initial-population"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "denominator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "denominator"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "numerator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "numerator"
+            } ]
+          },
+          "count": 0
+        } ]
+      } ]
+    }, {
+      "id": "by-trimester-category",
+      "stratum": [ {
+        "value": {
+          "text": "GA > 28 weeks"
+        },
+        "population": [ {
+          "id": "initial-population",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "initial-population"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "denominator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "denominator"
+            } ]
+          },
+          "count": 0
+        }, {
+          "id": "numerator",
+          "code": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+              "code": "numerator"
+            } ]
+          },
+          "count": 0
+        } ]
+      } ]
+    } ]
+  } ]
+}
