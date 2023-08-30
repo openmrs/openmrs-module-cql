@@ -128,7 +128,7 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 	
 	
 	@Test
-    public void testANCIND1IndicatorWithInMemoryDataRepository() {
+    public void testANCIND07IndicatorWithInMemoryDataRepository() {
 		
 		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(FhirContext.forCached(FhirVersionEnum.R4), false, 1);
 		
@@ -154,7 +154,7 @@ public class AncDakTest extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
-    public void testANCIND1IndicatorWithOpenMrsDataRepository() {
+    public void testANCIND07IndicatorWithOpenMrsDataRepository() {
 		
 		R4MeasureProcessor measureProcessor = MeasureProcessorUtil.setup(FhirContext.forCached(FhirVersionEnum.R4), false, 1);
 		
