@@ -2,33 +2,32 @@ package org.openmrs.module.cql;
 
 import java.util.List;
 
+import ca.uhn.fhir.util.BundleBuilder;
+import ca.uhn.fhir.util.BundleUtil;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.CarePlan;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Parameters;
-import org.opencds.cqf.cql.evaluator.fhir.repository.InMemoryFhirRepository;
-import org.opencds.cqf.cql.evaluator.library.EvaluationSettings;
-import org.opencds.cqf.cql.evaluator.library.LibraryEngine;
-import org.opencds.cqf.cql.evaluator.plandefinition.r4.PlanDefinitionProcessor;
 import org.opencds.cqf.fhir.api.Repository;
-import org.opencds.cqf.fhir.utility.Repositories;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.FhirVersionEnum;
 import ca.uhn.fhir.parser.IParser;
+import org.opencds.cqf.fhir.cql.EvaluationSettings;
+import org.opencds.cqf.fhir.cql.LibraryEngine;
+import org.opencds.cqf.fhir.cr.plandefinition.PlanDefinitionProcessor;
+import org.opencds.cqf.fhir.utility.monad.Eithers;
+import org.opencds.cqf.fhir.utility.repository.InMemoryFhirRepository;
+import org.opencds.cqf.fhir.utility.repository.Repositories;
 
 public class PlanDefinition {
 	
     private static final FhirContext fhirContext = FhirContext.forCached(FhirVersionEnum.R4);
+
     private static final IParser jsonParser = fhirContext.newJsonParser().setPrettyPrint(true);
-    
-    public static PlanDefinitionProcessor buildProcessor(Repository repository) {
-        return new PlanDefinitionProcessor(repository);
-    }
     
     public static class Apply {
         private String planDefinitionID;
-
         private String patientID;
         private String encounterID;
         
@@ -42,7 +41,7 @@ public class PlanDefinition {
         private LibraryEngine libraryEngine;
 
         public Apply() {
-        	
+
         }
         
         public Apply(String planDefinitionID, String patientID, String encounterID) {
@@ -52,7 +51,12 @@ public class PlanDefinition {
         }
         
         public Apply withData(String dataFolder) {
-        	dataRepository = new InMemoryFhirRepository(fhirContext, this.getClass(), List.of(dataFolder), false);
+            FhirResourceLoader resourceLoader = new FhirResourceLoader(fhirContext, this.getClass(), List.of(dataFolder));
+            BundleBuilder builder = new BundleBuilder(fhirContext);
+            for (IBaseResource resource : resourceLoader.getResources()) {
+                builder.addTransactionUpdateEntry(resource);
+            }
+        	dataRepository = new InMemoryFhirRepository(fhirContext, builder.getBundle());
             return this;
         }
         
@@ -71,12 +75,21 @@ public class PlanDefinition {
             }
               
             if (contentRepository == null) {
-                contentRepository = new InMemoryFhirRepository(fhirContext, this.getClass(), List.of("anc/libraries", "anc/plandefinitions"), false);
+                FhirResourceLoader resourceLoader = new FhirResourceLoader(fhirContext, this.getClass(), List.of("anc/libraries", "anc/plandefinitions"));
+                BundleBuilder builder = new BundleBuilder(fhirContext);
+                for (IBaseResource resource : resourceLoader.getResources()) {
+                    builder.addTransactionUpdateEntry(resource);
+                }
+                contentRepository = new InMemoryFhirRepository(fhirContext, builder.getBundle());
             }
               
             if (terminologyRepository == null) {
-                terminologyRepository = new InMemoryFhirRepository(fhirContext, this.getClass(),
-                    List.of("anc/valuesets"), false);
+                FhirResourceLoader resourceLoader = new FhirResourceLoader(fhirContext, this.getClass(), List.of("anc/valuesets"));
+                BundleBuilder builder = new BundleBuilder(fhirContext);
+                for (IBaseResource resource : resourceLoader.getResources()) {
+                    builder.addTransactionUpdateEntry(resource);
+                }
+                terminologyRepository = new InMemoryFhirRepository(fhirContext, builder.getBundle());
             }
               
             repository = Repositories.proxy(dataRepository, contentRepository, terminologyRepository);
@@ -87,7 +100,6 @@ public class PlanDefinition {
         }
         
         public GeneratedCarePlan apply(String planDefinitionID, String patientID, String encounterID, Parameters parameters) {
-        	
         	this.planDefinitionID = planDefinitionID;
             this.patientID = patientID;
             this.encounterID = encounterID;
@@ -102,9 +114,9 @@ public class PlanDefinition {
         	if (dataRepository instanceof OpenMrsRepository) {
         		((OpenMrsRepository)dataRepository).clearCache();
         	}
-        	
-        	return new GeneratedCarePlan((CarePlan) buildProcessor(repository).apply(
-                    new IdType("PlanDefinition", planDefinitionID), null, null, patientID, encounterID, null, null, null,
+
+        	return new GeneratedCarePlan(new PlanDefinitionProcessor(repository).<IdType, CarePlan>apply(
+                    Eithers.for3(null, new IdType("PlanDefinition", planDefinitionID), null), patientID, encounterID, null, null, null,
                     null, null, null, null, parameters, null, null, null, libraryEngine));
         }
     }

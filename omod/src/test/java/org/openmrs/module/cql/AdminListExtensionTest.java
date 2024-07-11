@@ -17,10 +17,8 @@ import static org.junit.Assert.assertThat;
 import java.util.Map;
 
 import org.junit.Test;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.Extension;
 import org.openmrs.module.cql.extension.html.AdminList;
-import org.openmrs.module.fhir2.providers.r4.ObservationFhirResourceProvider;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 
 /**

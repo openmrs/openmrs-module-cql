@@ -67,20 +67,18 @@
     </distributionManagement>
 
     <properties>
+		<openmrsPlatformVersion>2.6.0</openmrsPlatformVersion>
     	<jacksonVersion>2.13.2.1</jacksonVersion>
-        <openmrsPlatformVersion>2.6.0-SNAPSHOT</openmrsPlatformVersion>
-        
         <spring.version>5.3.19</spring.version>
         <dagger.version>2.34.1</dagger.version>
         <fhir-core.version>5.6.971</fhir-core.version>
-        <hapi.version>6.2.1</hapi.version>
+        <hapi.version>6.8.8</hapi.version>
         <picocli.version>4.6.1</picocli.version>
         <slf4j.version>1.7.29</slf4j.version>
         <caffeine.version>2.9.0</caffeine.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <guava.version>31.0.1-jre</guava.version>
         <fhir.version>1.10.0-SNAPSHOT</fhir.version>
-        
     </properties>
     
     <dependencyManagement>
@@ -223,13 +221,13 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.7.0</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5</version>
+					<version>3.0.1</version>
 					<configuration>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
 						<tagNameFormat>@{project.version}</tagNameFormat>
@@ -265,7 +263,7 @@
 								<goal>parse-version</goal>
 							</goals>
 							<configuration>
-								<versionString>${openMRSVersion}</versionString>
+								<versionString>${openmrsPlatformVersion}</versionString>
 							</configuration>
 						</execution>
 					</executions>

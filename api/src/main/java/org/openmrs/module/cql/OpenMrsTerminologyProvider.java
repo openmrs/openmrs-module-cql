@@ -11,12 +11,12 @@ import java.util.Map;
 import org.hl7.fhir.instance.model.api.IBase;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.instance.model.api.IPrimitiveType;
+import org.hl7.fhir.r4.model.ValueSet;
 import org.opencds.cqf.cql.engine.runtime.Code;
 import org.opencds.cqf.cql.engine.terminology.CodeSystemInfo;
 import org.opencds.cqf.cql.engine.terminology.TerminologyProvider;
 import org.opencds.cqf.cql.engine.terminology.ValueSetInfo;
-import org.opencds.cqf.cql.evaluator.engine.terminology.BundleTerminologyProvider;
-import org.opencds.cqf.cql.evaluator.engine.util.ValueSetUtil;
+import org.opencds.cqf.fhir.cql.engine.utility.ValueSets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ import ca.uhn.fhir.fhirpath.IFhirPath;
 
 public class OpenMrsTerminologyProvider implements TerminologyProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(BundleTerminologyProvider.class);
+    private static final Logger logger = LoggerFactory.getLogger(OpenMrsTerminologyProvider.class);
 
     private FhirContext fhirContext;
     private IFhirPath fhirPath;
@@ -89,12 +89,11 @@ public class OpenMrsTerminologyProvider implements TerminologyProvider {
     }
     
     public Iterable<Code> expandInternal(ValueSetInfo valueSet) {
-        
         if (!valueSetIndex.containsKey(valueSet.getId())) {
 	        String[] tokens = valueSet.getId().split("/");
 	        String id = tokens[tokens.length - 1];
 	        String asset = "anc/valuesets/valueset-" + id + ".json";
-	        IBaseResource resource = OpenMrsFhirDal.parse(asset);
+            IBaseResource resource = OpenmrsFhirRepository.parse(IBaseResource.class, asset);
 	        valueSets.add(resource);
 	        
 	        initValueSet(resource);
@@ -142,12 +141,12 @@ public class OpenMrsTerminologyProvider implements TerminologyProvider {
     }
     
     private void initValueSet(IBaseResource resource) {
-    	String url = ValueSetUtil.getUrl(fhirContext, resource);
-        Iterable<Code> codes = ValueSetUtil.getCodesInExpansion(this.fhirContext, resource);
+    	String url = ValueSets.getUrl(fhirContext, resource);
+        Iterable<Code> codes = ValueSets.getCodesInExpansion(this.fhirContext, resource);
 
         if (codes == null) {
             logger.warn("ValueSet {} is not expanded. Falling back to compose definition. This will potentially produce incorrect results. ", url);
-            codes = ValueSetUtil.getCodesInCompose(this.fhirContext, resource);
+            codes = ValueSets.getCodesInCompose(this.fhirContext, resource);
         } else {
             Boolean isNaiveExpansion = isNaiveExpansion(resource);
             if (isNaiveExpansion != null && isNaiveExpansion) {
@@ -164,9 +163,9 @@ public class OpenMrsTerminologyProvider implements TerminologyProvider {
 
     @SuppressWarnings("unchecked")
     private Boolean isNaiveExpansion(IBaseResource resource) {
-        IBase expansion = ValueSetUtil.getExpansion(this.fhirContext, resource);
+        IBase expansion = ValueSets.getExpansion(this.fhirContext, resource);
         if (expansion != null) {
-            Object object = ValueSetUtil.getExpansionParameters(expansion, fhirPath, ".where(name = 'naive').value");
+            Object object = ValueSets.getExpansionParameters(expansion, fhirPath, ".where(name = 'naive').value");
             if (object instanceof IBase) {
                 return resolveNaiveBoolean((IBase)object);
             } else if (object instanceof Iterable) {
@@ -216,11 +215,11 @@ public class OpenMrsTerminologyProvider implements TerminologyProvider {
 
 
     private boolean containsExpansionLogic(IBaseResource resource) {
-        List<IBase> includeFilters = ValueSetUtil.getIncludeFilters(this.fhirContext, resource);
+        List<IBase> includeFilters = ValueSets.getIncludeFilters(this.fhirContext, resource);
         if (includeFilters != null && !includeFilters.isEmpty()) {
             return true;
         }
-        List<IBase> excludeFilters = ValueSetUtil.getExcludeFilters(this.fhirContext, resource);
+        List<IBase> excludeFilters = ValueSets.getExcludeFilters(this.fhirContext, resource);
         if (excludeFilters != null && !excludeFilters.isEmpty()) {
             return true;
         }
