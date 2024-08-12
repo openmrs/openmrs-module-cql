@@ -27,7 +27,7 @@ public class CarePlanUtil {
     	for (RequestGroupActionComponent action : actions) {
     		List<RequestGroupActionComponent> childActions = action.getAction();
     		for (RequestGroupActionComponent childAction : childActions) {
-    			actionList.add(childAction.getTitle());
+    			actionList.add(childAction.getTitle() +" : " + childAction.getDescription());
     		}
     	}
     	

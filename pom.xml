@@ -44,6 +44,11 @@
             <id>oss-sonatype-public</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+		<repository>
+			<id>uwdigi-repo-central</id>
+          	<name>DIGI Public Repository</name>
+          	<url>https://packages.uwdigi.org/artifactory/public</url>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>

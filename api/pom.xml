@@ -118,10 +118,11 @@
             <version>2.4.0</version>
         </dependency>
 		
+		  <!-- for evaluator.plandefinition 3.0.1-PRE5 , see https://github.com/I-TECH-UW/clinical-reasoning/tree/develop/evaluator.plandefinition with some fixes-->
 		<dependency>
             <groupId>org.opencds.cqf.cql</groupId>
             <artifactId>evaluator.plandefinition</artifactId>
-            <version>3.0.0-PRE4-SNAPSHOT</version>
+            <version>3.0.1-PRE5</version>
             <exclusions>
             	<exclusion>
             		<groupId>xpp3</groupId>
