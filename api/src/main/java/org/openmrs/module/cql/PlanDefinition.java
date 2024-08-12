@@ -138,26 +138,18 @@ public class PlanDefinition {
         private Bundle generateBundleFromFiles(String directoryPath) {
 
             IParser jsonParser = fhirContext.newJsonParser();
-
-            // Create a new FHIR Bundle
             Bundle bundle = new Bundle();
             bundle.setType(Bundle.BundleType.COLLECTION);
-
-            // Read JSON files from the directory
             Collection<File> files = FileUtils.listFiles(new File(directoryPath), new String[] { "json" }, true);
 
             for (File file : files) {
                 try {
-                    // Read the file content
                     String jsonContent = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 
-                    // Parse the JSON content into a FHIR resource
                     IBaseResource iBaseResource = jsonParser.parseResource(jsonContent);
 
-                    // Add the resource to the bundle
                     if (iBaseResource instanceof Resource) {
                         Resource resource = (Resource) iBaseResource;
-                        // Add the resource to the bundle
                         bundle.addEntry().setResource(resource);
                     }
                 } catch (IOException e) {
@@ -165,9 +157,6 @@ public class PlanDefinition {
                 }
             }
 
-            // Print the bundle as JSON
-           // String bundleJson = jsonParser.setPrettyPrint(true).encodeResourceToString(bundle);
-           // System.out.println(bundleJson);
             return bundle;
         }
     }
